@@ -35,7 +35,7 @@ class SliderCell : SettingsCell {
     let valueLabel = UILabel()
     let sliderView = UISlider()
 
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
     }
@@ -160,18 +160,18 @@ class SliderCell : SettingsCell {
             self.titleLabel.text = item.title
             self.valueLabel.text = String(Int(item.value))
         }
-        self.sliderView.minimumValue = item.minimumValue
-        self.sliderView.maximumValue = item.maximumValue
+        self.sliderView.minimumValue = Float(item.minimumValue)
+        self.sliderView.maximumValue = Float(item.maximumValue)
         self.sliderView.minimumValueImage = item.minimumValueImage
         self.sliderView.maximumValueImage = item.maximumValueImage
-        self.sliderView.setValue(item.value, animated: false)
+        self.sliderView.setValue(Float(item.value), animated: false)
 
         self.configureAppearance()
         self.setNeedsUpdateConstraints()
     }
 
     @objc func sliderChanged(_ sender: AnyObject) {
-        item.value = sliderView.value
+        item.value = Double(sliderView.value)
         DispatchQueue.main.async {
             self.valueLabel.text = String(Int(self.item.value))
         }
